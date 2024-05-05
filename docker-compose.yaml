@@ -8,10 +8,10 @@ services:
     ports:
       - 8080:80
     environment:
-      WORDPRESS_DB_HOST: localhost:33060
-      WORDPRESS_DB_USER: wordpressuser
-      WORDPRESS_DB_PASSWORD: wordpresspass
-      WORDPRESS_DB_NAME: wordpressdb
+      WORDPRESS_DB_HOST: [dbhostname]
+      WORDPRESS_DB_USER: [wordpressuser]
+      WORDPRESS_DB_PASSWORD: [wordpresspass]
+      WORDPRESS_DB_NAME: [wordpressdb]
     volumes:
       - wordpress:/var/www/html
 
@@ -21,10 +21,10 @@ services:
     image: mysql:8.0
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: mysqldb
-      MYSQL_USER: mysqluser
-      MYSQL_PASSWORD: mysqlpass
-      MYSQL_ROOT_PASSWORD: mysqlrootpass
+      MYSQL_DATABASE: [dbname]
+      MYSQL_USER: [mysqluser]
+      MYSQL_PASSWORD: [mysqlpass]
+      MYSQL_ROOT_PASSWORD: [mysqlrootpass]
     volumes:
       - db:/var/lib/mysql
 
