@@ -1,0 +1,29 @@
+version: "3" 
+
+services:
+  db:
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: [MYSQL ROOT PASSWORD]
+      MYSQL_DATABASE: [MYSQL DATABASE NAME]
+      MYSQL_USER: [USER]
+      MYSQL_PASSWORD: [PASSWORD]
+      # Previous four lines define the main variables needed for the MySQL container to work: database, database username, database user password, and the MySQL root password.
+  wordpress:
+    depends_on:
+      - db
+    image: wordpress:latest
+    restart: unless-stopped
+    ports:
+      - 9999:80
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_USER: wordpress-user
+      WORDPRESS_DB_PASSWORD: [WORDPRESS-USER PASSWD]
+      WORDPRESS_DB_NAME: [WORDPRESS DB NAME]
+      # Similar to MySQL image variables, the last four lines define the main variables needed for the WordPress container to work properly with the MySQL container.
+    volumes:
+      ./:/var/www/html
+volumes:
+  mysql: {}
