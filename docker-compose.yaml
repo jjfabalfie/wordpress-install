@@ -1,20 +1,19 @@
 version: '3.1'
-
 services:
-
-  wordpress:
-    image: wordpress
-    restart: unless-stopped
-    ports:
-      - 8080:80
-    environment:
-      WORDPRESS_DB_HOST: [dbhostname]
-      WORDPRESS_DB_USER: [wordpressuser]
-      WORDPRESS_DB_PASSWORD: [wordpresspass]
-      WORDPRESS_DB_NAME: [wordpressdb]
-    volumes:
-      - wordpress:/var/www/html
-
+    wordpress:
+        image: wordpress:latest
+        volumes: 
+            - ~/docker/wrdps/data:/var/www/html
+        ports:
+            - 8080:80
+        restart: unless-stopped
+        environment:
+            WORDPRESS_DB_HOST=[wordpressdbhost]
+            WORDPRESS_DB_USER=[wordpressdbuser]
+            WORDPRESS_DB_PASSWORD=[wordpressdbpass]
+            WORDPRESS_DB_NAME=wordpress
+            
+##############Configured Database through PHPmyadmin with MariaDB 10.6##############
      db:
         image: mariadb:10.6
         container_name: maria 
@@ -27,7 +26,7 @@ services:
             - MYSQL_PASSWORD=[mysqlpass]
             - MYSQL_DATABASE=mariadb
         ports:
-            - "3306:3306"
+            - 3306:3306
         networks:
             - database
             
