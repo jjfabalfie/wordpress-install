@@ -1,35 +1,35 @@
 version: '3.1'
 services:
-    wordpress:
-        image: wordpress:latest
-        volumes: 
-            - ~/docker/wrdps/data:/var/www/html
-        ports:
-            - 8080:80
-        restart: unless-stopped
-        environment:
-            WORDPRESS_DB_HOST=[wordpressdbhost]
-            WORDPRESS_DB_USER=[wordpressdbuser]
-            WORDPRESS_DB_PASSWORD=[wordpressdbpass]
-            WORDPRESS_DB_NAME=wordpress
-            
+  wordpress:
+    image: wordpress:latest
+    volumes:
+      - ~/docker/wrdps/data:/var/www/html
+    ports:
+      - 8080:80
+    restart: unless-stopped
+    environment:
+      WORDPRESS_DB_HOST: [ipofhostdb]
+      WORDPRESS_DB_USER: [wordpressdbuser]
+      WORDPRESS_DB_PASSWORD: [wordpressdbpasswd]
+      WORDPRESS_DB_NAME: [dbname]
 ##############Configured Database through PHPmyadmin with MariaDB 10.6##############
-     db:
-        image: mariadb:10.6
-        container_name: maria 
-        restart: unless-stopped
-        volumes:
-            - ~/docker/maria/data:/var/lib/mysql
-        environment:
-            - MYSQL_ROOT_PASSWORD=[mysqlrootpass]
-            - MYSQL_USER=[mysqluser]
-            - MYSQL_PASSWORD=[mysqlpass]
-            - MYSQL_DATABASE=mariadb
-        ports:
-            - 3306:3306
-        networks:
-            - database
-            
+###### Uncomment the code if you don't have a database already setup ###############
+#  db:
+#    image: mariadb:10.6
+#    container_name: maria
+#    restart: unless-stopped
+#    volumes:
+#      - ~/docker/maria/data:/var/lib/mysql
+#    environment:
+#      MYSQL_ROOT_PASSWORD: [mysqlrootpassword]
+#      MYSQL_USER: [mysqluser]
+#      MYSQL_PASSWORD: [mysqlpasswd]
+#      MYSQL_DATABASE: mariadb
+#    ports:
+#      - 3306:3306
+#    networks:
+#      - database
+
 networks:
     database:
         driver: bridge
